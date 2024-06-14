@@ -19,9 +19,13 @@ export const ThermistorChainTrendLine: FC<ThermistorChainTrendLineProps> = ({ me
   const maxTemperature = Math.min(...measurements.map((item) => item.averageTemperature));
 
   const dateRange = useMemo(() => {
-    return trendData
-      ? [Object.keys(trendData.points)[0], Object.keys(trendData.points)[Object.keys(trendData.points).length - 2]]
-      : [];
+    if (!trendData) return [];
+
+    const dates = Object.keys(trendData.points);
+    const startDate = dates[0];
+    const endDate = dates[dates.length - 2];
+
+    return trendData ? [startDate, endDate] : [];
   }, [trendData]);
 
   return (

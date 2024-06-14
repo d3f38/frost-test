@@ -91,25 +91,23 @@ export const ThermistorChain = () => {
 
   return (
     <>
-      <>
-        <Flex gap={16}>
-          <Button type="primary" onClick={() => showModal("common")}>
-            График распределения температур по глубине
-          </Button>
-          <Button type="primary" onClick={() => showModal("trend")}>
-            График линии тренда и Te
-          </Button>
-        </Flex>
-        <Modal width={850} open={!!openModal} onCancel={handleCancel} footer={null}>
-          {openModal === "common" ? (
-            <ThermistorChainChart measurements={selectedDates ? filteredMeasurements : measurements} />
-          ) : (
-            <ThermistorChainTrendLine measurements={selectedDates ? filteredMeasurements : measurements} />
-          )}
-        </Modal>
+      <Flex gap={16}>
+        <Button type="primary" onClick={() => showModal("common")}>
+          График распределения температур по глубине
+        </Button>
+        <Button type="primary" onClick={() => showModal("trend")}>
+          График линии тренда и Te
+        </Button>
+      </Flex>
+      <Modal width={850} open={!!openModal} onCancel={handleCancel} footer={null}>
+        {openModal === "common" ? (
+          <ThermistorChainChart measurements={selectedDates ? filteredMeasurements : measurements} />
+        ) : (
+          <ThermistorChainTrendLine measurements={selectedDates ? filteredMeasurements : measurements} />
+        )}
+      </Modal>
 
-        <MeasurementTable columns={expandedColumns} dataSource={measurements} />
-      </>
+      <MeasurementTable columns={expandedColumns} dataSource={measurements} />
     </>
   );
 };

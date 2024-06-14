@@ -9,13 +9,18 @@ interface ThermistorChainChartProps {
 }
 
 export const ThermistorChainChart: FC<ThermistorChainChartProps> = ({ measurements }) => {
-  const data: Data[] = measurements.map((measurement) => ({
-    name: new Date(measurement.time).toLocaleString("ru"),
-    x: Object.keys(measurement.data).map((key) => measurement.data[key].value),
-    y: Object.keys(measurement.data).map((item) => item),
-    type: "scatter",
-    mode: "lines+markers",
-  }));
+  const data: Data[] = measurements.map((measurement) => {
+    const deltaValues = Object.keys(measurement.data);
+    const date = new Date(measurement.time).toLocaleString("ru");
+
+    return {
+      name: date,
+      x: deltaValues.map((delta) => measurement.data[delta].value),
+      y: deltaValues.map((delta) => delta),
+      type: "scatter",
+      mode: "lines+markers",
+    };
+  });
 
   return (
     <Plot
